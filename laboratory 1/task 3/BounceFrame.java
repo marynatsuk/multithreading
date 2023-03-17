@@ -23,43 +23,52 @@ public class BounceFrame extends JFrame {
         content.add(this.canvas, BorderLayout.CENTER);
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.lightGray);
-        //JButton buttonStart = new JButton("Start");
-        JButton startBlue = new JButton("Add Blue");
-        JButton startRed = new JButton("Add Red");
+        JButton buttonStart = new JButton("Start");
+        //JButton startBlue = new JButton("Add");
+        //JButton startRed = new JButton("Add Red");
         JButton buttonStop = new JButton("Stop");
-        startBlue.addActionListener(new ActionListener() {
+        buttonStart.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                for (int i = 0; i < 100; i++) {
-                    Ball b = new Ball(canvas);
-                    b.setColor(Color.blue);
-                    canvas.add(b);
+                for (int i = 0; i < 1000; i++) {
+                    Ball blue_b = new Ball(canvas);
+                    blue_b.setColor(Color.blue);
+                    canvas.add(blue_b);
 
-                    BallThread thread = new BallThread(b, BLUE_PRIORITY);
-                    thread.start();
+                    BallThread blue_thread = new BallThread(blue_b, BLUE_PRIORITY);
+                    blue_thread.start();
                     System.out.println("Thread name = " +
-                            thread.getName());
+                            blue_thread.getName());
                 }
+
+                Ball red_b = new Ball(canvas);
+                red_b.setColor(Color.red);
+                canvas.add(red_b);
+
+                BallThread red_thread = new BallThread(red_b, RED_PRIORITY);
+                red_thread.start();
+                System.err.println(" RED Thread name = " +
+                        red_thread.getName());
             }
         });
 
-        startRed.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Ball b = new Ball(canvas);
-                b.setColor(Color.red);
-                canvas.add(b);
-
-                BallThread thread = new BallThread(b, RED_PRIORITY);
-                thread.start();
-                System.out.println("Thread name = " +
-                        thread.getName());
-            }
-        });
+//        startRed.addActionListener(new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//                Ball b = new Ball(canvas);
+//                b.setColor(Color.red);
+//                canvas.add(b);
+//
+//                BallThread thread = new BallThread(b, RED_PRIORITY);
+//                thread.start();
+//                System.err.println(" RED Thread name = " +
+//                        thread.getName());
+//            }
+//        });
 
         buttonStop.addActionListener(new ActionListener() {
             @Override
@@ -68,8 +77,7 @@ public class BounceFrame extends JFrame {
                 System.exit(0);
             }
         });
-        buttonPanel.add(startBlue);
-        buttonPanel.add(startRed);
+        buttonPanel.add(buttonStart);
         buttonPanel.add(buttonStop);
 
         content.add(buttonPanel, BorderLayout.SOUTH);
@@ -78,3 +86,4 @@ public class BounceFrame extends JFrame {
     }
 
 }
+
